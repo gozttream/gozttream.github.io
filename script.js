@@ -31,4 +31,3 @@ function increaseScore() {
     score++;
     document.getElementById("score").textContent = "Score: " + score;
 }
-
