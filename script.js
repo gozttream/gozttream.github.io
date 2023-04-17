@@ -1,33 +1,60 @@
 let score = 0;
-let gameInterval;
+let time = 10;
+let targetInterval;
 
-document.getElementById("start-button").addEventListener("click", startGame);
-
-function startGame() {
-    document.getElementById("start-button").disabled = true;
-    document.getElementById("start-button").textContent = "Game in progress";
-    gameInterval = setInterval(showCircle, 1000);
-    document.getElementById("circle").addEventListener("click", increaseScore);
+const startGame = () => {
+  document.getElementById('start-button').disabled = true;
+  targetInterval = setInterval(() => {
+    generateTarget();
+  }, 1000);
+  updateScore();
+  updateTime();
 }
 
-function showCircle() {
-    let circle = document.getElementById("circle");
-    let gameContainer = document.getElementById("game-container");
-    let maxTop = gameContainer.clientHeight - circle.clientHeight;
-    let maxLeft = gameContainer.clientWidth - circle.clientWidth;
-    let top = Math.floor(Math.random() * maxTop);
-    let left = Math.floor(Math.random() * maxLeft);
-    circle.style.top = top + "px";
-    circle.style.left = left + "px";
-    circle.style.display = "block";
-    setTimeout(hideCircle, 1000);
-}
-
-function hideCircle() {
-    document.getElementById("circle").style.display = "none";
-}
-
-function increaseScore() {
+const generateTarget = () => {
+  const target = document.getElementById('target');
+  const gameArea = document.getElementById('game-area');
+  const maxTop = gameArea.clientHeight - target.clientHeight;
+  const maxLeft = gameArea.clientWidth - target.clientWidth;
+  
+  target.style.top = getRandomNumber(0, maxTop) + 'px';
+  target.style.left = getRandomNumber(0, maxLeft) + 'px';
+  
+  target.style.display = 'block';
+  
+  target.onclick = () => {
     score++;
-    document.getElementById("score").textContent = "Score: " + score;
+    updateScore();
+    target.style.display = 'none';
+  }
+  
+  setTimeout(() => {
+    target.style.display = 'none';
+  }, 1000);
 }
+
+const updateScore = () => {
+  document.getElementById('score-value').textContent = score;
+}
+
+const updateTime = () => {
+  document.getElementById('time-value').textContent = time;
+  if (time === 0) {
+    clearInterval(targetInterval);
+    document.getElementById('start-button').disabled = false;
+    score = 0;
+    time = 10;
+    updateScore();
+  } else {
+    time--;
+    setTimeout(() => {
+      updateTime();
+    }, 1000);
+  }
+}
+
+const getRandomNumber = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+document.getElementById('start-button').addEventListener('click', start
