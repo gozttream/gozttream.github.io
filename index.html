@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Tap the Circle</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Tap the Target</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div id="game-container">
-        <div id="circle"></div>
-        <h1 id="score">Score: 0</h1>
-        <button id="start-button">Start Game</button>
+  <div class="container">
+    <h1>Tap the Target</h1>
+    <div id="game-area">
+      <div id="target"></div>
     </div>
-    <script src="script.js"></script>
+    <p id="score">Score: <span id="score-value">0</span></p>
+    <p id="time">Time Left: <span id="time-value">10</span> seconds</p>
+    <button id="start-button">Start Game</button>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
