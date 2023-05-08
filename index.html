@@ -17,3 +17,27 @@
   <script src="script.js"></script>
 </body>
 </html>
+// Load YouTube API asynchronously
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+var player;
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    videoId: 'VIDEO_ID_HERE',
+    events: {
+      'onReady': onPlayerReady
+    }
+  });
+}
+
+function onPlayerReady(event) {
+  document.getElementById('play-button').addEventListener('click', function() {
+    player.playVideo();
+  });
+  document.getElementById('pause-button').addEventListener('click', function() {
+    player.pauseVideo();
+  });
+}
